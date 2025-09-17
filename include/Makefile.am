@@ -57,6 +57,7 @@ smartmon_headers = \
         smartmon/knowndrives.h \
         smartmon/nvme.h \
         smartmon/nvmecmds.h \
+        smartmon/ocptelemetry.h \
         smartmon/scsicmds.h \
         smartmon/sg_unaligned.h \
         smartmon/smartmon_defs.h \

@@ -1,3 +1,11 @@
+## Notice
+
+The version of smartmontools hosted in this repository contains a proof of concept
+implementation for parsing the OCP Datacenter SAS-SATA Device Specification v1.5
+statistics and events. The code is provided for information only, and will eventually
+be upstreamed to the official smartmontools repository when actual device support is
+available.
+
 ## About Smartmontools
 The smartmontools package contains two utility programs (`smartctl` and `smartd`) 
 to control and monitor storage systems using the **Self-Monitoring, Analysis and 

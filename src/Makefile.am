@@ -62,6 +62,8 @@ smartctl_SOURCES = \
         farmprint.h \
         nvmeprint.cpp \
         nvmeprint.h \
+        ocptelemetryprint.cpp \
+        ocptelemetryprint.h \
         scsiprint.cpp \
         scsiprint.h
 

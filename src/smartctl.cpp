@@ -258,7 +258,8 @@ static std::string getvalidarglist(int opt)
            "scttemp[sts,hist], scttempint,N[,p], "
            "scterc[,N,M][,p|reset], devstat[,N], defects[,N], "
            "ssd, gplog,N[,RANGE], smartlog,N[,RANGE], "
-           "nvmelog,N,SIZE, tapedevstat, zdevstat, envrep, farm";
+           "nvmelog,N,SIZE, tapedevstat, zdevstat, envrep, farm, "
+           "ocptelemetry";
   case 'P':
     return "use, ignore, show, showall";
   case 't':
@@ -543,6 +544,8 @@ static int parse_options(int argc, char** argv, const char * & type,
         ataopts.gp_logdir = true; // GPL
       } else if (!strcmp(optarg, "genstats")) {
         scsiopts.general_stats_and_perf = true;
+      } else if (!strcmp(optarg,"ocptelemetry")) {
+        ataopts.ocp_telemetry = scsiopts.ocp_telemetry = true;
       } else if (!strcmp(optarg,"sasphy")) {
         scsiopts.sasphy = true;
       } else if (!strcmp(optarg,"sasphy,reset")) {

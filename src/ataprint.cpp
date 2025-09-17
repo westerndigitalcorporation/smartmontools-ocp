@@ -32,6 +32,8 @@
 #include <smartmon/farmcmds.h>
 #include "farmprint.h"
 
+#include "ocptelemetryprint.h"
+
 using namespace smartmon;
 
 static const char * infofound(const char *output) {
@@ -2067,7 +2069,6 @@ static bool print_device_statistics(ata_device * device, unsigned nsectors,
   return true;
 }
 
-
 ///////////////////////////////////////////////////////////////////////
 // Pending Defects log (Log 0x0c)
 
@@ -3519,6 +3520,7 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
        || !options.devstat_pages.empty()
        || options.pending_defects_log
        || options.farm_log
+       || options.ocp_telemetry
   );
 
   unsigned i;
@@ -4547,6 +4549,23 @@ int ataPrintMain (ata_device * device, const ata_print_options & options)
                options.devstat_all_pages, options.devstat_ssd_page, use_gplog,
                sizes.log_sector_size                                          ))
       failuretest(OPTIONAL_CMD, returnval|=FAILSMART);
+  }
+
+  // Print OCP Telemetry log
+  if (options.ocp_telemetry) {
+    unsigned nsectors_0x24 = GetNumLogSectors(gplogdir, 0x24, true);
+    unsigned nsectors_0x25 = GetNumLogSectors(gplogdir, 0x25, true);
+
+    if (!nsectors_0x24 || !nsectors_0x25)
+      pout("OCP Telemetry not supported\n\n");
+    else if (nsectors_0x24 == 1)
+      pout("OCP Telemetry not supported for GP Log 0x24 with 1 sector\n\n");
+    else if (nsectors_0x25 == 1)
+      pout("OCP Telemetry not supported for GP Log 0x25 with 1 sector\n\n");
+    else {
+      if (!print_ata_ocp_telemetry_log(device, nsectors_0x24, nsectors_0x25))
+        failuretest(OPTIONAL_CMD, returnval|=FAILSMART);
+    }
   }
 
   // Print Pending Defects log

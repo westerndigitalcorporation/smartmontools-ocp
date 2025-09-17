@@ -56,6 +56,7 @@ libsmartmon_la_SOURCES = \
         farmcmds.cpp \
         knowndrives.cpp \
         nvmecmds.cpp \
+        ocptelemetry.cpp \
         json.cpp \
         scsicmds.cpp \
         scsiata.cpp \
